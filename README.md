@@ -83,3 +83,127 @@ print(triangularNumbers1(8))
 
 Konversi Bilangan
 suatu proses dimana satu system bilangan dengan basis tertentu akan dijadikan bilangan dengan basis yang lain.
+Bilangan integer ini dikenal juga sebagai bilangan dengan base 10 (desimal), sehingga memiliki kemungkinan character angka dari 0 s.d 9.
+
+Berikut fungsi rekursif untuk konversi bilangan desimal menjadi bilangan base yang lain.
+
+            def konversiDesimal(bilangan,base):
+                charBilangan='0123456789ABCDEF'
+                if bilangan<base:
+                    return(charBilangan[bilangan])
+                else:
+                    temp=bilangan//base
+                    ind=bilangan % base
+                    print(type(temp),temp,type(ind),ind)
+                    return(konversiDesimal(temp,base)+charBilangan[ind])
+                    
+            konversiDesimal(5,2)
+            
+
+
+
+Towers of Hanoi
+ini diinspirasi oleh cerita mitos dari sebuah kuil di India. Pada saat itu, pendeta memerintahkan para pekerjanya atau pendeta muda untuk memindahkan 64 piringan emas dengan ukuran yang berbeda-beda dari satu tiang ke tiang lainnya.
+Syarat memindahkan piringan emas ini adalah :
+      1. piringan emas harus dipindahkan satu persatu
+      2. piringan emas berukuran kecil harus berada diatas piringan emas berukuran besar.
+
+Berikut algoritma untuk memindahkan piringan sebanyak nn, dari tiang awal ke tiang tujuan, melalui suatu tiang bantuan:
+      1. pindahkan piringan sebanyak n-1n−1 dari tiang awal ke tiang bantuan, melalui tiang tujuan
+      2. pindahkan piringan ke nn dari tiang awal ke tiang tujuan
+      3. pindahkan piringan sebanyak n-1n−1 dari tiang bantuan ke tiang tujuan, melalui tiang awal
+      
+Berikut code untuk penyelesaian permasalahan towers of hanoi dengan menggunakan teknik rekursif
+
+            def towers(n,awal,bantuan,tujuan):
+                if n==1:
+                    print("Piringan - 1 dari-", awal,"ke-",tujuan)
+                else:
+                    towers(n-1,awal,tujuan,bantuan)
+                    print("Piringan -",n, "dari-",awal,"ke-", tujuan)
+                    towers(n-1,bantuan,awal,tujuan
+                    
+            towers(4,'A','B','C')
+            
+            
+            
+Visualisasi Teknik Pemrograman Rekursif
+Berikut adalah pembuatan bentuk spiral secara rekursif dengan menggunakan modul Turtle
+
+            import turtle
+            my_turtle = turtle.Turtle()
+            my_win = turtle.Screen()
+
+            def draw_spiral(my_turtle, line_len):
+                if line_len > 0:
+                    my_turtle.forward(line_len)
+                    my_turtle.right(90)
+                    draw_spiral(my_turtle, line_len - 5)
+
+            draw_spiral(my_turtle, 90)
+            my_win.exitonclick()
+            
+Fractal merupakan cabang matematika dan memiliki banyak kesamaan dengan teknik rekursif. Fraktal memiliki bentuk dasar, dan bentuk dasar ini dikembangkan secara berulang terus menerus
+
+Berikut adalah pembuatan bentuk fraktal sederhana, yaitu pohon, secara rekursif dengan menggunakan modul Turtle
+
+                        import turtle
+                        def tree(branch_len, t):
+                            t.speed('slowest')
+                            if branch_len > 5:
+                                t.forward(branch_len)
+                                t.right(20)
+                                tree(branch_len - 15, t)
+                                t.left(40)
+                                tree(branch_len - 15, t)
+                                t.right(20)
+                                t.backward(branch_len)
+
+                        def main():
+                            my_win = turtle.Screen()
+                            t = turtle.Turtle()
+
+                            t.shape("turtle")
+                            t.left(90)
+                            t.up()
+                            t.backward(100)
+                            t.down()
+                            t.color("green")
+                            tree(60, t)
+                            my_win.exitonclick()
+                        main()
+
+            Segitia Sierpinski ini juga merupakan bentuk fraktal. Segitiga ini memiliki bentuk dasar (yaitu, suatu segitiga dan didalamnya terdapat empat buat segitiga dengan ukuran yang sama), dan bentuk dasar ini terus menerus dibangkitkan sampai derajat tertentu.
+
+            Berikut contoh code untuk pembuatan Segitiga Sierpinski:
+
+            import turtle
+            def draw_triangle(points, color, my_turtle):   
+                my_turtle.speed('slowest')
+                my_turtle.fillcolor(color)
+                my_turtle.up()
+                my_turtle.goto(points[0][0],points[0][1])
+                my_turtle.down()
+                my_turtle.begin_fill()
+                my_turtle.goto(points[1][0], points[1][1])
+                my_turtle.goto(points[2][0], points[2][1])
+                my_turtle.goto(points[0][0], points[0][1])
+                my_turtle.end_fill()
+            def get_mid(p1, p2):
+                return ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2)
+            def sierpinski(points, degree, my_turtle):
+                color_map = ["blue", "red" , "green", "white" , "yellow" ,"violet" , "orange"]
+                draw_triangle(points, color_map[degree], my_turtle)
+                if degree > 0:
+                    sierpinski([points[0],get_mid(points[0], points[1]), get_mid(points[0], points[2])], degree-1, my_turtle)
+                    sierpinski([points[1],get_mid(points[0], points[1]), get_mid(points[1], points[2])], degree-1, my_turtle)
+                    sierpinski([points[2],get_mid(points[2], points[1]), get_mid(points[0], points[2])], degree-1, my_turtle)
+
+            def main():
+                my_turtle = turtle.Turtle()
+                my_win = turtle.Screen()
+                my_points = [[-100, -50], [0, 100], [100, -50]]
+                sierpinski(my_points, 2, my_turtle)
+                my_win.exitonclick()
+
+            main()
